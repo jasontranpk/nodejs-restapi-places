@@ -11,6 +11,11 @@ async function getCoordsForAddress(address) {
 			address
 		)}&key=${process.env.GG_API_KEYS}`
 	);
+	/* 	console.log(
+		`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+			address
+		)}&key=${process.env.GG_API_KEYS}`
+	); */
 	const data = response.data;
 	if (!data || data.status === 'ZERO_RESULTS') {
 		const error = new HttpError(

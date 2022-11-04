@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 const userRoutes = require('./routes/users');
 const placeRoutes = require('./routes/places');
@@ -25,6 +27,11 @@ app.use((error, req, res, next) => {
 	res.json({ message: error.message || 'An unknown error occurred' });
 });
 
-app.listen(8000, () => {
-	console.log('Server is running');
-});
+mongoose
+	.connect(process.env.MONGODB_URI)
+	.then(() => {
+		app.listen(8000, () => {
+			console.log('Server is running');
+		});
+	})
+	.catch((err) => console.log(err));
