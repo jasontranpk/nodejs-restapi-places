@@ -48,7 +48,7 @@ app.use((error, req, res, next) => {
 mongoose
 	.connect(process.env.MONGODB_URI)
 	.then(() => {
-		app.listen(8000, () => {
+		app.listen(process.env.PORT || 8000, () => {
 			console.log('Server is running');
 		});
 	})
