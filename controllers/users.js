@@ -1,6 +1,7 @@
 const { v4: uuid } = require('uuid');
 const HttpError = require('../models/http-error');
 const { validationResult } = require('express-validator');
+var jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
@@ -43,7 +44,7 @@ exports.signup = async (req, res, next) => {
 	}
 	let hashedPassword;
 	try {
-		hashedPassword = await bcrypt.hash(password, 8);
+		hashedPassword = await bcrypt.hash(password, 12);
 	} catch (err) {
 		const error = new HttpError('Could not encode password', 500);
 		return next(error);
@@ -52,19 +53,23 @@ exports.signup = async (req, res, next) => {
 		name,
 		password: hashedPassword,
 		email,
-		image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1164.jpg',
+		image: req.file.path,
+		places: [],
 	});
-
+	let token;
 	try {
 		await user.save();
+		token = jwt.sign({ id: user._id, name: user.name }, 'supersecret', {
+			expiresIn: '1h',
+		});
 	} catch (err) {
 		const error = new HttpError(
 			'Something went wrong, Could not sign up',
 			500
 		);
-		return next(err);
+		return next(error);
 	}
-	res.status(201).json({ user: user.toObject({ getters: true }) });
+	res.status(201).json({ userId: user.id, email: user.email, token: token });
 };
 
 exports.login = async (req, res, next) => {
@@ -74,20 +79,35 @@ exports.login = async (req, res, next) => {
 		throw new HttpError('Please enter valid input data', 422);
 	}
 	const { email, password } = req.body;
-	let user, isEqual;
+	let user, isValidPassword;
 	try {
 		user = await User.findOne({ email: email });
-		isEqual = await bcrypt.compare(password, user.password);
+		isValidPassword = await bcrypt.compare(password, user.password);
 	} catch (err) {
+		const error = new HttpError('Wrong email or password', 500);
+		return next(error);
+	}
+	if (!user || !isValidPassword) {
+		const error = new HttpError('Could not identify user', 403);
+		return next(error);
+	}
+	let token;
+	try {
+		token = jwt.sign({ id: user._id, name: user.name }, 'supersecret', {
+			expiresIn: '1h',
+		});
+	} catch (err) {
+		console.log(err);
 		const error = new HttpError(
-			'Something went wrong, Signing in failed',
+			'Something wrong, could not log you in',
 			500
 		);
-		return next(error);
+		return next(err);
 	}
-	if (!user || !isEqual) {
-		const error = new HttpError('Could not identify user', 401);
-		return next(error);
-	}
-	res.json({ message: 'logged in' });
+	res.status(200).json({
+		message: 'logged in',
+		userId: user.id,
+		email: email,
+		token: token,
+	});
 };

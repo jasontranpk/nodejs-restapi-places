@@ -1,14 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
+const fileUpload = require('../middleware/file-upload');
 
 const placeController = require('../controllers/places');
+const checkAuth = require('../middleware/check-auth');
 
 router.get('/user/:uid', placeController.getPlacesByUserId);
 
-router.delete('/:pid', placeController.deletePlace);
-
 router.get('/:pid', placeController.getPlaceById);
+
+router.use(checkAuth);
+
+router.delete('/:pid', placeController.deletePlace);
 
 router.patch(
 	'/:pid',
@@ -22,6 +26,7 @@ router.patch(
 
 router.post(
 	'/',
+	fileUpload.single('image'),
 	[
 		check('title').trim().not().isEmpty(),
 		check('description').trim().isLength({ min: 5 }),

@@ -5,6 +5,7 @@ const getCoordsForAddress = require('../util/location');
 const Place = require('../models/place');
 const User = require('../models/user');
 const { default: mongoose } = require('mongoose');
+const fs = require('fs');
 
 exports.getPlaceById = async (req, res, next) => {
 	const placeId = req.params.pid;
@@ -40,13 +41,14 @@ exports.getPlacesByUserId = async (req, res, next) => {
 		);
 		return next(error);
 	}
-	if (!places || places.length === 0) {
+	/* 	if (!places || places.length === 0) {
 		const error = new HttpError(
-			'Could not find a places for the  provided user id',
+			'Could not find places for the  provided user id',
 			404
 		);
 		return next(error);
-	}
+	} */
+
 	res.json({
 		places: places.map((place) => place.toObject({ getters: true })),
 	});
@@ -60,21 +62,24 @@ exports.createPlace = async (req, res, next) => {
 			new HttpError('Invalid inputs passed, please check your data', 422)
 		);
 	}
-	const { title, description, address, creator } = req.body;
+	const { title, description, address } = req.body;
 	let createdPlace;
 	try {
 		const coordinates = await getCoordsForAddress(address);
+		console.log(req.userData.userId);
 		createdPlace = new Place({
 			title,
 			description,
 			location: coordinates,
 			address,
-			creator,
-			image: 'http://placeimg.com/640/480/city',
+			creator: req.userData.userId,
+			image: req.file.path,
 		});
 
-		const user = await User.findById(creator);
-
+		const user = await User.findById(req.userData.userId);
+		if (!user) {
+			throw new HttpError('Could not find user');
+		}
 		const sess = await mongoose.startSession();
 		sess.startTransaction();
 		await createdPlace.save({ session: sess });
@@ -89,12 +94,19 @@ exports.createPlace = async (req, res, next) => {
 };
 
 exports.editPlace = async (req, res, next) => {
-	const { title, description, address, creator } = req.body;
+	const { title, description } = req.body;
 	const placeId = req.params.pid;
 	let place;
 	try {
 		place = await Place.findById(placeId);
 
+		if (place.creator !== req.userData.userId) {
+			const error = new HttpError(
+				'You are not allowed to edit this place',
+				401
+			);
+			return next(error);
+		}
 		if (!place) {
 			const error = new HttpError(
 				'Could not find a place for the provided id',
@@ -102,17 +114,14 @@ exports.editPlace = async (req, res, next) => {
 			);
 			return next(error);
 		}
-		let coordinates;
-		coordinates = await getCoordsForAddress(address);
+		/* 		let coordinates;
+		coordinates = await getCoordsForAddress(address); */
 
 		place.title = title;
 		place.description = description;
-		place.address = address;
-		place.location = coordinates;
-		place.creator = creator;
-
 		await place.save();
 	} catch (err) {
+		console.log(err);
 		const error = new HttpError('Updating place failed, please try again');
 		return next(error);
 	}
@@ -125,6 +134,13 @@ exports.deletePlace = async (req, res, next) => {
 	let place;
 	try {
 		place = await Place.findById(placeId).populate('creator');
+		if (place.creator.id !== req.userData.userId) {
+			const error = new HttpError(
+				'You are not allowed to delete this place',
+				401
+			);
+			return next(error);
+		}
 		if (!place) {
 			const error = new HttpError(
 				'Could not find a place for the provided id',
@@ -138,6 +154,9 @@ exports.deletePlace = async (req, res, next) => {
 		await place.creator.save();
 		await place.remove({ session: sess });
 		await sess.commitTransaction();
+		fs.unlink(place.image, (err) => {
+			console.log(err);
+		});
 	} catch (err) {
 		console.log(err);
 		const error = new HttpError('Could not delete place');
