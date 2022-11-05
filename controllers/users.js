@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator');
 var jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+require('dotenv').config();
 
 exports.getUsers = async (req, res, next) => {
 	let users;
@@ -59,9 +60,13 @@ exports.signup = async (req, res, next) => {
 	let token;
 	try {
 		await user.save();
-		token = jwt.sign({ id: user._id, name: user.name }, 'supersecret', {
-			expiresIn: '1h',
-		});
+		token = jwt.sign(
+			{ id: user._id, name: user.name },
+			process.env.JWT_SECRET_KEY,
+			{
+				expiresIn: '1h',
+			}
+		);
 	} catch (err) {
 		const error = new HttpError(
 			'Something went wrong, Could not sign up',
@@ -93,9 +98,13 @@ exports.login = async (req, res, next) => {
 	}
 	let token;
 	try {
-		token = jwt.sign({ id: user._id, name: user.name }, 'supersecret', {
-			expiresIn: '1h',
-		});
+		token = jwt.sign(
+			{ id: user._id, name: user.name },
+			process.env.JWT_SECRET_KEY,
+			{
+				expiresIn: '1h',
+			}
+		);
 	} catch (err) {
 		console.log(err);
 		const error = new HttpError(

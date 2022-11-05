@@ -100,7 +100,7 @@ exports.editPlace = async (req, res, next) => {
 	try {
 		place = await Place.findById(placeId);
 
-		if (place.creator !== req.userData.userId) {
+		if (place.creator.toString() !== req.userData.userId) {
 			const error = new HttpError(
 				'You are not allowed to edit this place',
 				401
