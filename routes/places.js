@@ -27,6 +27,10 @@ router.patch(
 router.post(
 	'/',
 	fileUpload.single('image'),
+	(req, res, next) => {
+		console.log(req.file);
+		next();
+	},
 	[
 		check('title').trim().not().isEmpty(),
 		check('description').trim().isLength({ min: 5 }),

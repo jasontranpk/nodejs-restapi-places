@@ -6,6 +6,7 @@ const Place = require('../models/place');
 const User = require('../models/user');
 const { default: mongoose } = require('mongoose');
 const fs = require('fs');
+const fileRemove = require('../middleware/file-remove');
 
 exports.getPlaceById = async (req, res, next) => {
 	const placeId = req.params.pid;
@@ -73,7 +74,7 @@ exports.createPlace = async (req, res, next) => {
 			location: coordinates,
 			address,
 			creator: req.userData.userId,
-			image: req.file.path,
+			image: req.file.key,
 		});
 
 		const user = await User.findById(req.userData.userId);
@@ -154,9 +155,10 @@ exports.deletePlace = async (req, res, next) => {
 		await place.creator.save();
 		await place.remove({ session: sess });
 		await sess.commitTransaction();
-		fs.unlink(place.image, (err) => {
+		/* 		fs.unlink(place.image, (err) => {
 			console.log(err);
-		});
+		}); */
+		fileRemove(place.image);
 	} catch (err) {
 		console.log(err);
 		const error = new HttpError('Could not delete place');

@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
-const fs = require('fs');
+const fileRemove = require('./middleware/file-remove');
 require('dotenv').config();
 
 const userRoutes = require('./routes/users');
@@ -34,9 +34,7 @@ app.use((req, res, next) => {
 
 app.use((error, req, res, next) => {
 	if (req.file) {
-		fs.unlink(req.file.path, (err) => {
-			console.log(err);
-		});
+		fileRemove(req.file.key);
 	}
 	if (res.headerSent) {
 		return next(error);
