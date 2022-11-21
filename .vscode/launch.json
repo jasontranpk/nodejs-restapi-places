@@ -1,0 +1,49 @@
+{
+	"configurations": [
+		{
+			"type": "aws-sam",
+			"request": "direct-invoke",
+			"name": "rest-placesharing-dev-app:server.handler (nodejs16.x)",
+			"invokeTarget": {
+				"target": "code",
+				"projectRoot": "${workspaceFolder}/lambda/rest-placesharing-dev-app",
+				"lambdaHandler": "server.handler"
+			},
+			"lambda": {
+				"runtime": "nodejs16.x",
+				"payload": {},
+				"environmentVariables": {}
+			}
+		},
+		{
+			"type": "aws-sam",
+			"request": "direct-invoke",
+			"name": "express-app-dev-app:server.handler (nodejs16.x)",
+			"invokeTarget": {
+				"target": "code",
+				"projectRoot": "${workspaceFolder}/lambda/express-app-dev-app",
+				"lambdaHandler": "server.handler"
+			},
+			"lambda": {
+				"runtime": "nodejs16.x",
+				"payload": {},
+				"environmentVariables": {}
+			}
+		},
+		{
+			"type": "aws-sam",
+			"request": "direct-invoke",
+			"name": "express-app-dev-app:server.handler (nodejs16.x)",
+			"invokeTarget": {
+				"target": "code",
+				"projectRoot": "${workspaceFolder}/express-app-dev-app",
+				"lambdaHandler": "server.handler"
+			},
+			"lambda": {
+				"runtime": "nodejs16.x",
+				"payload": {},
+				"environmentVariables": {}
+			}
+		}
+	]
+}

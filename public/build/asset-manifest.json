@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/static/css/main.fea07008.css",
+    "main.js": "/static/js/main.2df5265c.js",
+    "static/css/43.80f54815.chunk.css": "/static/css/43.80f54815.chunk.css",
+    "static/js/43.0ec448e6.chunk.js": "/static/js/43.0ec448e6.chunk.js",
+    "static/css/966.7eb9aa25.chunk.css": "/static/css/966.7eb9aa25.chunk.css",
+    "static/js/966.48f72f5a.chunk.js": "/static/js/966.48f72f5a.chunk.js",
+    "static/css/842.f0f50b54.chunk.css": "/static/css/842.f0f50b54.chunk.css",
+    "static/js/842.b5de6ce6.chunk.js": "/static/js/842.b5de6ce6.chunk.js",
+    "static/css/684.6556d4c5.chunk.css": "/static/css/684.6556d4c5.chunk.css",
+    "static/js/684.d8bed6f6.chunk.js": "/static/js/684.d8bed6f6.chunk.js",
+    "static/css/119.e3c4c3e4.chunk.css": "/static/css/119.e3c4c3e4.chunk.css",
+    "static/js/119.e06f7665.chunk.js": "/static/js/119.e06f7665.chunk.js",
+    "static/js/233.864b513d.chunk.js": "/static/js/233.864b513d.chunk.js",
+    "index.html": "/index.html",
+    "main.fea07008.css.map": "/static/css/main.fea07008.css.map",
+    "main.2df5265c.js.map": "/static/js/main.2df5265c.js.map",
+    "43.80f54815.chunk.css.map": "/static/css/43.80f54815.chunk.css.map",
+    "43.0ec448e6.chunk.js.map": "/static/js/43.0ec448e6.chunk.js.map",
+    "966.7eb9aa25.chunk.css.map": "/static/css/966.7eb9aa25.chunk.css.map",
+    "966.48f72f5a.chunk.js.map": "/static/js/966.48f72f5a.chunk.js.map",
+    "842.f0f50b54.chunk.css.map": "/static/css/842.f0f50b54.chunk.css.map",
+    "842.b5de6ce6.chunk.js.map": "/static/js/842.b5de6ce6.chunk.js.map",
+    "684.6556d4c5.chunk.css.map": "/static/css/684.6556d4c5.chunk.css.map",
+    "684.d8bed6f6.chunk.js.map": "/static/js/684.d8bed6f6.chunk.js.map",
+    "119.e3c4c3e4.chunk.css.map": "/static/css/119.e3c4c3e4.chunk.css.map",
+    "119.e06f7665.chunk.js.map": "/static/js/119.e06f7665.chunk.js.map",
+    "233.864b513d.chunk.js.map": "/static/js/233.864b513d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fea07008.css",
+    "static/js/main.2df5265c.js"
+  ]
+}

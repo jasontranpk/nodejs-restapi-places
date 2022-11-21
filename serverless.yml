@@ -1,0 +1,30 @@
+service: rest-placesharing
+
+provider:
+    name: aws
+    runtime: nodejs16.x
+    stage: dev
+    region: ap-southeast-1
+    apiGateway:
+        binaryMediaTypes:
+            - 'multipart/form-data'
+
+functions:
+    app:
+        handler: server.handler
+        events:
+            - http:
+                  path: /
+                  method: ANY
+                  cors: true
+            - http:
+                  path: /{proxy+}
+                  method: ANY
+                  cors: true
+
+package:
+    patterns:
+        - '!.env'
+
+plugins:
+    - serverless-offline
