@@ -8,11 +8,7 @@ Place Sharing Application (BACK END) -  RESTful API server
   * [Tech Stack](#space_invader-tech-stack)
   * [Features](#dart-features)
 - [Getting Started](#toolbox-getting-started)
-  * [Installation](#gear-installation)
-  * [Run Locally](#running-run-locally)
-  * [Deployment](#triangular_flag_on_post-deployment)
 - [Contact](#handshake-contact)
-- [Acknowledgements](#gem-acknowledgements)
 
   
 
@@ -34,8 +30,10 @@ Place Sharing Application (BACK END) -  RESTful API server
 <details>
   <summary>Server</summary>
   <ul>
-    <li><a href="https://nodejs.org/en/">NodeJS</a></li>
+    <li><a href="https://nodejs.org/en/">NodeJS (MVC)</a></li>
     <li><a href="https://expressjs.com/">Express.js</a></li>
+    <li><a href="https://jwt.io/">JWT</a></li>
+    <li><a href="https://developers.google.com/maps">Google Map API</a></li>
   </ul>
 </details>
 
@@ -51,29 +49,18 @@ Place Sharing Application (BACK END) -  RESTful API server
 <!-- Features -->
 ### :dart: Features
 
-- Feature 1
-- Feature 2
-- Feature 3
+- Authentication
+- Add/ Update Places
+- Sign in/ Sign Up
+- Convert location from address to coordinates (GG Map)
+- Upload Images to AWS S3
+- Data Validations
+- ...
 
 <!-- Getting Started -->
 ## 	:toolbox: Getting Started
 
 <!-- Prerequisites -->
-### :bangbang: Prerequisites
-
-```bash
- npm install
-```
-
-<!-- Installation -->
-### :gear: Installation
-
-Install my-project with npm
-
-```bash
-  yarn install my-project
-  cd my-project
-```
 
 <!-- Run Locally -->
 ### :running: Run Locally
@@ -87,7 +74,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd nodejs-restapi-places
 ```
 
 Install dependencies
@@ -102,22 +89,10 @@ Start the server
   npm start
 ```
 
-
-<!-- Usage -->
-## :eyes: Usage
-
-Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources.
-
-<!-- License -->
-## :warning: License
-
-Distributed under the no License. See LICENSE.txt for more information.
-
-
 <!-- Contact -->
 ## :handshake: Contact
 
 Son Tran
 
-Project Link: [https://github.com/jasontranpk/nodejs-restapi-places)
+Project Link: <a href="https://github.com/jasontranpk/nodejs-restapi-places">https://github.com/jasontranpk/nodejs-restapi-places</a>
 
