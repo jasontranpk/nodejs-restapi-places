@@ -1,5 +1,5 @@
-# nodejs-restapi-places
-Place Sharing Application (BACK END) -  RESTful API Server
+# nodejs-restapi-places - BACK END
+Place Sharing Application - RESTful API Server
 
 <!-- Table of Contents -->
 # :notebook_with_decorative_cover: Table of Contents
