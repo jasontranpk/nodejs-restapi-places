@@ -22,7 +22,7 @@ Place Sharing Application (BACK END) -  RESTful API Server
 
 <div align="center"> 
   <img src="https://user-images.githubusercontent.com/62680684/203251601-8ee6c598-1a7e-4c75-b2a6-ed3c50c4e340.png" alt="screenshot" />
-  <a href="d3ahiru7au7zsk.cloudfront.net"> DEMO LINK </a>
+  <a href="http://d3ahiru7au7zsk.cloudfront.net"> DEMO LINK </a>
 </div>
 
 
