@@ -96,7 +96,7 @@ Start the server
 
 Son Tran
 
-Project Github Link: <a href="https://github.com/jasontranpk/nodejs-restapi-places">https://github.com/jasontranpk/nodejs-restapi-places</a>
+Back End Project Github Link: <a href="https://github.com/jasontranpk/nodejs-restapi-places">https://github.com/jasontranpk/nodejs-restapi-places</a>
 
 Front End Project Github Link:  <a href="https://github.com/jasontranpk/project-reactjs-places">https://github.com/jasontranpk/project-reactjs-places</a>
 
